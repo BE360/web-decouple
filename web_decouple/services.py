@@ -1,5 +1,8 @@
-from decouple import AutoConfig, undefined
+import sys
 from urllib.parse import urlencode
+
+import os
+from decouple import AutoConfig, undefined
 
 
 class WebConfig(AutoConfig):
@@ -31,5 +34,10 @@ class WebConfig(AutoConfig):
 
         return self(data_key, cast=cast)
 
+    def _caller_path(self):
+        # SUPERMAGIC! Get the caller's module path.
+        frame = sys._getframe()
+        path = os.path.dirname(frame.f_back.f_back.f_back.f_code.co_filename)
+        return path
 
 config = WebConfig()
