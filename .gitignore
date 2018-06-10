@@ -1,0 +1,8 @@
+.idea/
+*__pycache__*
+*.egg-info/
+dist/
+pip
+node_modules
+package-lock.json
+.venv
