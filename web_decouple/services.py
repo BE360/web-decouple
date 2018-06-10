@@ -23,3 +23,11 @@ def get_token(service):
 
 def get_service_code(service):
     return 'srv.' + service
+
+
+def get_data(service, key, cast=str):
+    service_code = get_service_code(service)
+
+    data_key = service_code + "#" + key
+
+    return config(data_key, cast=cast)
