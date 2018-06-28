@@ -30,12 +30,12 @@ class WebConfig(AutoConfig):
     def get_service_code(self, service):
         return 'srv.' + service
 
-    def get_data(self, service, key, cast=undefined):
+    def get_data(self, service, key, cast=undefined, default=undefined):
         service_code = self.get_service_code(service)
 
         data_key = service_code + "@" + key
 
-        return self(data_key, cast=cast)
+        return self(data_key, cast=cast, default=default)
 
     def _caller_path(self):
         # SUPERMAGIC! Get the caller's module path.
