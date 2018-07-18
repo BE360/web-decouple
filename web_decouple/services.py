@@ -7,10 +7,13 @@ from decouple import AutoConfig, undefined
 
 class WebConfig(AutoConfig):
 
-    def get_url(self, service, url_name, query_params: dict=None, url_kwargs: dict=None):
+    def get_url(self, service, url_name, base_url=None, query_params: dict=None, url_kwargs: dict=None):
         service_code = self.get_service_code(service)
 
-        service_base_url = self(service_code)
+        if base_url is None:
+            service_base_url = self(service_code)
+        else:
+            service_base_url = base_url
 
         url_code = service_code + '/' + url_name
         url = service_base_url + self(url_code)
