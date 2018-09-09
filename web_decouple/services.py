@@ -7,7 +7,7 @@ from decouple import AutoConfig, undefined
 
 class WebConfig(AutoConfig):
 
-    def get_url(self, service, url_name, base_url=None, query_params: dict=None, url_kwargs: dict=None):
+    def get_url(self, service, url_name=None, base_url=None, query_params: dict=None, url_kwargs: dict=None):
         service_code = self.get_service_code(service)
 
         if base_url is None:
@@ -15,8 +15,11 @@ class WebConfig(AutoConfig):
         else:
             service_base_url = base_url
 
-        url_code = service_code + '/' + url_name
-        url = service_base_url + self(url_code)
+        if url_name:
+            url_code = service_code + '/' + url_name
+            url = service_base_url + self(url_code)
+        else:
+            url = service_base_url
 
         if url_kwargs:
             url = url.format(**url_kwargs)
